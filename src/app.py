@@ -21,7 +21,7 @@ logging.basicConfig(
 load_dotenv()
 app = Flask(__name__)
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
-QUICKNODE_ENDPOINT_API_KEY = os.getenv("PROJECT_ID")
+QUICKNODE_ENDPOINT_API_KEY = os.getenv("QUICKNODE_ENDPOINT_API_KEY")
 
 def get_current_block():
     url = f"https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey={ETHERSCAN_API_KEY}"
@@ -69,11 +69,10 @@ def get_all_transaction(address,start_block,step = 10000, delay=0.2):
             })
 
             if data["status"] != "1":
-            #   print(f"Error or not transaction for block range {current_block} - {next_block}")
+            
               logging.error(f"Error or not transaction for block range {current_block} - {next_block}")
               break
         all_transactions.extend(formatted_transactions)
-        # print(f"Fetched {len(formatted_transactions)} txs from blocks {current_block} to {next_block}")
         logging.info(f"Fetched {len(formatted_transactions)} txs from blocks {current_block} to {next_block}")
         current_block = next_block + 1
         time.sleep(delay)
@@ -161,7 +160,6 @@ def get_token_balances(address, block_number):
                 balances[symbol] = human_balance
 
         except Exception as e:
-            # print(f"Error while fetching token {token_name}: {e}")
             logging.error(f"Error while fetching token {token_name}: {e}")
     return balances
 
@@ -191,7 +189,6 @@ def balance():
                     token_balances = get_token_balances(address, block_number)
             except Exception as e:
                 error = f"Error: {str(e)}"
-
     return render_template('balance.html', balance_eth=balance_eth, token_balances=token_balances, error=error)
 
 if __name__ == "__main__":
