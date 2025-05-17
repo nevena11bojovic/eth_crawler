@@ -11,7 +11,7 @@ A simple web application that allows users to input an Ethereum wallet address a
 - QuickNode API
 
 ## Setup
-
+ 
 1. Clone the repository:
 ```bash
 git clone https://github.com/nevena11bojovic/eth_crawler.git

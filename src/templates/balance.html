@@ -18,13 +18,13 @@
         <button type="submit">Get Balance</button>
     </form>
     {% if balance_eth is not none %}
-        <p>ETH Balance at 00:00 UTC: {{ balance_eth }} ETH</p>
+        <p>ETH Balance: {{ balance_eth }} ETH</p>
     {% else %}
-        <p>ETH Balance at 00:00 UTC: 0.0 ETH</p>
+        <p>ETH Balance: 0.0 ETH</p>
     {% endif %}
 
     {% if token_balances %}
-    <h3>Token Balances:</h3>
+    <h3>Token Balances:</h3> 
     <ul>
     {% for symbol, amount in token_balances.items() %}
         <li>{{ symbol }}: {{ amount }}</li>

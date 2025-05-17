@@ -162,7 +162,7 @@ def get_token_balances(address, block_number):
         except Exception as e:
             logging.error(f"Error while fetching token {token_name}: {e}")
     return balances
-
+ 
 @app.route('/balance', methods=['GET', 'POST'])
 def balance():
     balance_eth=None
