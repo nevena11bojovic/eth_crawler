@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Ethereum Transaction Crawler</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2em; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        input[type="text"], input[type="number"] {
+            width: 300px; padding: 8px; margin-right: 10px;
+        }
+    
+    </style>
+</head>
+<body>
+    <h2>Ethereum Transaction Crawler</h2>
+    <form method="POST">
+        <input type="text" name="address" placeholder="Wallet Address" required value="{{ address }}">
+        <input type="number" name="start_block" placeholder="Start Block" required value="{{ start_block }}">
+        <button type = "submit">Get Transactions</button>
+    </form>
+    {% if transactions %}
+        <h3>Transactions ({{ transactions | length }})</h3>
+        <table>
+            <tr>
+                <th>Block</th>
+                <th>From</th>
+                <th>To</th>
+                <th>ETH</th>
+                <th>Type</th>
+                <th>Hash</th>
+            </tr>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.blockNumber }}</td>
+                <td>{{ tx.from }}</td>
+                <td>{{ tx.to }}</td>
+                <td>{{ tx.value | float / 1e18 }}</td>
+                <td>{{ tx.type }}</td>
+                <td><a href="https://etherscan.io/tx/{{ tx.hash }}" target="_blank">View</a></td>               
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% if address and start_block %}
+            <p style="color: red;">No transactions found for this address and block range.</p>
+        {% endif %}
+{% endif %}
+
+</body>
+</html>

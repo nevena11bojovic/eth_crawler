@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tokens Balance Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2em; }
+        input[type="text"], input[type="date"] {
+            width: 300px; padding: 8px; margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tokens Balance at Specific Date </h2>
+    <form method="POST">
+        <input type="text" name="address" placeholder="Wallet Address" required value="{{ address }}">
+        <input type="date" name="date" required value="{{ date }}">
+        <button type="submit">Get Balance</button>
+    </form>
+    {% if balance_eth is not none %}
+        <p>ETH Balance at 00:00 UTC: {{ balance_eth }} ETH</p>
+    {% else %}
+        <p>ETH Balance at 00:00 UTC: 0.0 ETH</p>
+    {% endif %}
+
+    {% if token_balances %}
+    <h3>Token Balances:</h3>
+    <ul>
+    {% for symbol, amount in token_balances.items() %}
+        <li>{{ symbol }}: {{ amount }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
